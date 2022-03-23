@@ -1,10 +1,52 @@
+#include <bits/stdc++.h>
 #include <iostream>
 #include <string>
 #include <time.h>
+#include <iomanip>
+#include <limits>
+#include <ctime>
+#include <chrono>
 
 using namespace std;
 
 #define ARR_SIZE(n) sizeof(n) / sizeof(*n)
+// arreglos de prueba, con aumentos proporcionales de 5
+int loga0[1000];
+int loga1[2000];
+int loga2[3000];
+
+int cuad0[1000];
+int cuad1[1000];
+int cuad2[1000];
+
+void prepareArrays() {
+    for (int i = 0; i < 1000; i++) {
+        loga0[i] = i+1;
+    }
+    for (int i = 0; i < 2000; i++) {
+        loga1[i] = i+1;
+    }
+    for (int i = 0; i < 3000; i++) {
+        loga2[i] = i+1;
+    }
+
+    for (int i = 0; i < 1000; i++) {
+        cuad0[i] = 1000-i;
+    }
+    for (int i = 0; i < 2000; i++) {
+        cuad1[i] = 2000-i;
+    }
+    for (int i = 0; i < 3000; i++) {
+        cuad2[i] = 3000-i;
+    }
+
+    shuffle(loga0, loga0 + 1000, default_random_engine(0));
+    shuffle(loga1, loga1 + 2000, default_random_engine(0));
+    shuffle(loga2, loga2 + 3000, default_random_engine(0));
+
+    cout << "done!" << endl;
+
+}
 
 int particionar(int arr[], int imin, int imax) {
     srand(time(NULL));
@@ -35,7 +77,10 @@ int particionarRandom(int arr[], int imin, int imax) {
 
 void quickSort(int arr[], int imin, int imax, int pivotType) {
     int k;
-    if (imin >= imax) { return; } // condicion de parada
+    if (imin >= imax) {
+        cout << "";
+        return;
+    } // condicion de parada
     switch (pivotType) {
     case 0:
         k = particionar(arr, imin, imax);
@@ -56,6 +101,23 @@ void quickSort(int arr[], int imin, int imax, int pivotType) {
 
 
 int main () {
-    
+
+    prepareArrays();
+    using std::chrono::high_resolution_clock;
+    using std::chrono::duration_cast;
+    using std::chrono::duration;
+    using std::chrono::milliseconds;
+    using std::chrono::nanoseconds;
+    // primera prueba: quicksort de pivote fijo en tiempo logarítmico
+    auto t1 = high_resolution_clock::now();
+    quickSort(loga0,0,999,0);
+    auto t2 = high_resolution_clock::now();
+
+    //ns
+    auto ns_int = duration_cast<milliseconds>(t2-t1);
+    duration<double, std::milli> ns_double = t2 - t1;
+
+    std::cout << setprecision(10) << ns_int.count() << "ns\n";
+    std::cout << setprecision(10) << ns_double.count() << "ns\n";
     return 0;
 }

@@ -1,9 +1,6 @@
 quicksort:
-	g++ quicksort.cpp -o quick
-	.\quick.exe
+	g++ -w -O1 quicksort.cpp -o quick
 selection:
-	g++ selection.cpp -o select
-	.\select.exe
+	g++ -w -O1 selection.cpp -o select
 search:
 	g++ kmpsearch.cpp -o search
-	.\serarch.exe

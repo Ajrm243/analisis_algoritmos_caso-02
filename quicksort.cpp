@@ -5,7 +5,6 @@
 using namespace std;
 
 #define ARR_SIZE(n) sizeof(n) / sizeof(*n)
-#define PIVOT_TYPE 0
 
 int particionar(int arr[], int imin, int imax) {
     srand(time(NULL));

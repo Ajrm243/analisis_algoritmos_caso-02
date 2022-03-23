@@ -1,3 +1,9 @@
-make:
-	g++ main_caso2.cpp -o caso2
-	.\caso2.exe
+quicksort:
+	g++ quicksort.cpp -o quick
+	.\quick.exe
+selection:
+	g++ selection.cpp -o select
+	.\select.exe
+search:
+	g++ kmpsearch.cpp -o search
+	.\serarch.exe

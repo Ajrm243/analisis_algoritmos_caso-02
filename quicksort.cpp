@@ -11,41 +11,32 @@ using namespace std;
 
 #define ARR_SIZE(n) sizeof(n) / sizeof(*n)
 // arreglos de prueba, con aumentos proporcionales de 5
-int loga0[1000];
-int loga1[2000];
-int loga2[3000];
+int arr0[5000];
+int arr1[6000];
+int arr2[7000];
+int arr3[8000];
+int arr4[9000];
 
-int cuad0[1000];
-int cuad1[1000];
-int cuad2[1000];
+void prepareArrays(int arr[], int n, bool desc) {
 
-void prepareArrays() {
-    for (int i = 0; i < 1000; i++) {
-        loga0[i] = i+1;
-    }
-    for (int i = 0; i < 2000; i++) {
-        loga1[i] = i+1;
-    }
-    for (int i = 0; i < 3000; i++) {
-        loga2[i] = i+1;
+    for (int i = 0; i < n; i++) {
+        if (desc) {
+            arr[i] = n - i;
+        } else {
+            arr[i] = i + 1;
+        }
     }
 
-    for (int i = 0; i < 1000; i++) {
-        cuad0[i] = 1000-i;
+    if (!desc) {
+        shuffle(arr, arr + n, default_random_engine(0));
     }
-    for (int i = 0; i < 2000; i++) {
-        cuad1[i] = 2000-i;
+}
+
+void printArray(int arr[], int n) {
+    for (int i = 0; i < n; i++) {
+        cout << arr[i] << " ";
     }
-    for (int i = 0; i < 3000; i++) {
-        cuad2[i] = 3000-i;
-    }
-
-    shuffle(loga0, loga0 + 1000, default_random_engine(0));
-    shuffle(loga1, loga1 + 2000, default_random_engine(0));
-    shuffle(loga2, loga2 + 3000, default_random_engine(0));
-
-    cout << "done!" << endl;
-
+    cout << endl;
 }
 
 int particionar(int arr[], int imin, int imax) {
@@ -101,23 +92,111 @@ void quickSort(int arr[], int imin, int imax, int pivotType) {
 
 
 int main () {
+    clock_t ini, fin;
+    // pruebas
+    double tiemposLog[5];
 
-    prepareArrays();
-    using std::chrono::high_resolution_clock;
-    using std::chrono::duration_cast;
-    using std::chrono::duration;
-    using std::chrono::milliseconds;
-    using std::chrono::nanoseconds;
-    // primera prueba: quicksort de pivote fijo en tiempo logarítmico
-    auto t1 = high_resolution_clock::now();
-    quickSort(loga0,0,999,0);
-    auto t2 = high_resolution_clock::now();
+    prepareArrays(arr0, ARR_SIZE(arr0), true);
+    ini = clock();
+    quickSort(arr0, 0, ARR_SIZE(arr0) - 1, 1);
+    fin = clock();
+    tiemposLog[0] = (fin - ini);// / static_cast<double>(CLOCKS_PER_SEC);
+    cout << "Pivote aleatorio | array descendente:" << endl;
+    cout << "t0: ";
+    cout << setprecision(2) << fixed << tiemposLog[0] << "ms" << endl;
 
-    //ns
-    auto ns_int = duration_cast<milliseconds>(t2-t1);
-    duration<double, std::milli> ns_double = t2 - t1;
+    prepareArrays(arr1, ARR_SIZE(arr1), true);
+    ini = clock();
+    quickSort(arr1, 0, ARR_SIZE(arr1) - 1, 1);
+    fin = clock();
+    tiemposLog[1] = (fin - ini);// / static_cast<double>(CLOCKS_PER_SEC);
+    cout << "t1: ";
+    cout << setprecision(2) << fixed << tiemposLog[1] << "ms" << endl;
 
-    std::cout << setprecision(10) << ns_int.count() << "ns\n";
-    std::cout << setprecision(10) << ns_double.count() << "ns\n";
+    prepareArrays(arr2, ARR_SIZE(arr2), true);
+    ini = clock();
+    quickSort(arr2, 0, ARR_SIZE(arr2) - 1, 1);
+    fin = clock();
+    tiemposLog[2] = (fin - ini);// / static_cast<double>(CLOCKS_PER_SEC);
+    cout << "t2: ";
+    cout << setprecision(2) << fixed << tiemposLog[2] << "ms" << endl;
+
+    prepareArrays(arr3, ARR_SIZE(arr3), true);
+    ini = clock();
+    quickSort(arr3, 0, ARR_SIZE(arr3) - 1, 1);
+    fin = clock();
+    tiemposLog[3] = (fin - ini);// / static_cast<double>(CLOCKS_PER_SEC);
+    cout << "t2: ";
+    cout << setprecision(2) << fixed << tiemposLog[3] << "ms" << endl;
+
+    prepareArrays(arr4, ARR_SIZE(arr4), true);
+    ini = clock();
+    quickSort(arr4, 0, ARR_SIZE(arr4) - 1, 1);
+    fin = clock();
+    tiemposLog[4] = (fin - ini);// / static_cast<double>(CLOCKS_PER_SEC);
+    cout << "t2: ";
+    cout << setprecision(2) << fixed << tiemposLog[4] << "ms" << endl;
+
+    double tasa0 = (tiemposLog[1] - tiemposLog[0]) / (tiemposLog[0] == 0 ? 1 : tiemposLog[0]);
+    double tasa1 = (tiemposLog[2] - tiemposLog[1]) / (tiemposLog[1] == 0 ? 1 : tiemposLog[1]);
+    double tasa2 = (tiemposLog[3] - tiemposLog[2]) / (tiemposLog[2] == 0 ? 1 : tiemposLog[2]);
+    double tasa3 = (tiemposLog[4] - tiemposLog[3]) / (tiemposLog[3] == 0 ? 1 : tiemposLog[3]);
+
+    cout << "tasa0: ";
+    cout << setprecision(2) << fixed << tasa0 << endl;
+    cout << "tasa1: ";
+    cout << setprecision(2) << fixed << tasa1 << endl;
+    cout << "tasa2: ";
+    cout << setprecision(2) << fixed << tasa2 << endl;
+    cout << "tasa3: ";
+    cout << setprecision(2) << fixed << tasa3 << endl;
     return 0;
 }
+
+/*
+    *RESULTADOS
+    Fijo | Aleatorio:
+        Pivote fijo tiempo logaritmico:
+        t0: 1.00ms
+        t1: 1.00ms
+        t2: 2.00ms
+        t2: 2.00ms
+        t2: 3.00ms
+        tasa0: 0.00
+        tasa1: 1.00
+        tasa2: 0.00
+        tasa3: 0.50
+    Fijo | Descendente:
+        Pivote fijo tiempo cuadratico:
+        t0: 74.00ms  
+        t1: 109.00ms
+        t2: 146.00ms
+        t2: 189.00ms
+        t2: 243.00ms
+        tasa0: 0.47 
+        tasa1: 0.34
+        tasa2: 0.29
+        tasa3: 0.29
+    Aleatorio | Aleatorio:
+        Pivote aleatorio | array aleatorio:
+        t0: 1.00ms
+        t1: 1.00ms
+        t2: 2.00ms
+        t2: 2.00ms
+        t2: 3.00ms
+        tasa0: 0.00
+        tasa1: 1.00
+        tasa2: 0.00
+        tasa3: 0.50
+    Aleatorio | Descendiente:
+        Pivote aleatorio | array descendente:
+        t0: 1.00ms
+        t1: 2.00ms
+        t2: 2.00ms
+        t2: 2.00ms
+        t2: 3.00ms
+        tasa0: 1.00
+        tasa1: 0.00
+        tasa2: 0.00
+        tasa3: 0.50
+*/

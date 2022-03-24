@@ -2,8 +2,23 @@
 
 ## Caso 2 del curo de Análisis de Algoritmos I Semestre 2022 ITCR
 
+### Parte 0: makefile specs
+El archivo makefile tiene las siguientes instrucciones:
+```make
+quicksort:
+	g++ -O0 quicksort.cpp -o quick
+	.\quick.exe
+selection:
+	g++ -O0 selection.cpp -o select
+	.\select.exe
+search:
+	g++ kmpsearch.cpp -o search
+	.\search.exe
+```
+El compilador usado es g++ para Windows: Mingw-32. Para ejecutar cada prueba se tiene que escribir en la consola `make {opcion}` donde `{opcion}` es  'quicksort', 'selection' o 'search'.
+
 ### Parte I: Quicksort logarítmico, cuadrático y pivote fijo vs. pivote aleatorio
- En la implementación del quicksort se hicieron las siguientes pruebas:
+En la implementación del quicksort se hicieron las siguientes pruebas:
 
  - Pivote fijo con generación aleatoria de arreglos (caso promedio)
  - Pivote fijo con generación descendente de arreglos (peor caso)

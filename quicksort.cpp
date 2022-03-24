@@ -1,16 +1,15 @@
 #include <bits/stdc++.h>
 #include <iostream>
-#include <string>
 #include <time.h>
 #include <iomanip>
 #include <limits>
 #include <ctime>
-#include <chrono>
+
+#define ARR_SIZE(n) sizeof(n) / sizeof(*n)
 
 using namespace std;
 
-#define ARR_SIZE(n) sizeof(n) / sizeof(*n)
-// arreglos de prueba, con aumentos proporcionales de 5
+// arreglos de prueba, con aumentos proporcionales de mil
 int arr0[5000];
 int arr1[6000];
 int arr2[7000];

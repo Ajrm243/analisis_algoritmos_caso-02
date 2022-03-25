@@ -4,7 +4,7 @@
   
 
 ## Caso 2 del curo de Análisis de Algoritmos I Semestre 2022 ITCR
-
+## Adrian Ramirez Mattey | 2020239249
   
 
 ### Parte 0: makefile specs

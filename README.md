@@ -167,3 +167,5 @@ tasa2: 0.0000000000
 tasa3: 0.0000000000
 ```
 Se aumentó la precisión de los números en el momento de imprimir pero aún así no sirvió para observar los verdaderos tiempos. Pese a eso se concluye por intuición que los tiempos son lineales debido a que la lista ya está ordenada entonces solo se hacen los recorridos principales de la colección.
+### Parte III: Free text search con KMP
+Para la implementación de un algoritmo de búsqueda que soporte una carga de texto de 10 MB se utilizó una modificación del algoritmo KMP **(Knuth Morris Pratt)**. Este algoritmo es en el peor caso un ***O(n)*** y es importante porque si se utilizara el algoritmo ***Naive*** o "ingenuo" duraría mucho tiempo más, el caso promedio de este otro algoritmo es ***O(m(n-m+1))*** lo cuál es mucho peor que el utilizado.
